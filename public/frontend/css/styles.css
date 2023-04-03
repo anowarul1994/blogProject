@@ -1,0 +1,18 @@
+.body{
+    overflow: hidden;
+}
+
+.slick-slide img{
+    width: 100vw;
+    height: 400px;
+    object-fit: cover;
+}
+
+.slick-next{
+    right: 25px;
+}
+
+.slick-prev{
+    left: 25px;
+    z-index: 999;
+}
