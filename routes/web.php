@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\SubCategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackendController;
@@ -30,6 +31,7 @@ Route::get('/', [FrontendController::class, 'index'])->name('front.index');
 
 Route::group(['middleware'=>'auth', 'prefix'=>'dashboard'], function (){
     Route::get('/', [BackendController::class, 'index'])->name('back.index');
+
     //category controller code start
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
@@ -41,6 +43,17 @@ Route::group(['middleware'=>'auth', 'prefix'=>'dashboard'], function (){
 
 
     //Route::resource('/dashboard/category', BackendController::class);
+
+    //category controller code start
+
+    //sub_category controller code start
+    Route::get('sub-categories/create', [SubCategoryController::class, 'create'])->name('sub-categories.create');
+    Route::post('sub-categories', [SubCategoryController::class, 'store'])->name('sub-categories.store');
+    Route::get('sub-categories', [SubCategoryController::class, 'index'])->name('sub-categories.index');
+    Route::get('sub-categories/{subcategory}', [SubCategoryController::class, 'show'])->name('sub-categories.show');
+    Route::get('sub-categories/{subcategory}/edit', [SubCategoryController::class, 'edit'])->name('sub-categories.edit');
+    Route::put('sub-categories/{subcategory}', [SubCategoryController::class, 'update'])->name('sub-categories.update');
+    Route::delete('sub-categories/{subcategory}', [SubCategoryController::class, 'destroy'])->name('sub-categories.destroy');
 
 });
 

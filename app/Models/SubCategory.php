@@ -6,18 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @method static create(array $data)
+ * @method static create(array $sub_category)
  * @method static latest()
  * @method static orderBy(string $string, string $string1)
- * @method static truncate()
- * @method static pluck(string $string, string $string1)
  */
-class Category extends Model
+class SubCategory extends Model
 {
     use HasFactory;
     protected $guarded=[];
 
-    public static function find(Category $category)
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
+        return $this->belongsTo(Category::class);
     }
 }

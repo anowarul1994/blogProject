@@ -9,5 +9,5 @@
     {!! Form::password('password', ['class'=>'form-control form-control-sm', 'placeholder'=>'Enter Your password']) !!}
     {!! Form::button('Login', ['class'=>'btn btn-success btn-sm mt-3', 'type'=>'submit']) !!}
     {!! Form::close() !!}
-    <p class="mt-2">Not a member? <a href="{{ route('register') }}">Login here</a></p>
+    <p class="mt-2">Not a member? <a href="{{ route('register') }}">Register here</a></p>
 @endsection

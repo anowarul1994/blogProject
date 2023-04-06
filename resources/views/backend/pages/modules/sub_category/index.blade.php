@@ -1,6 +1,6 @@
 @extends('backend.layout.master')
 
-@section('page_title', 'Category List')
+@section('page_title', 'Sub Category List')
 
 @section('content')
     <div class="row justify-content-center">
@@ -9,10 +9,10 @@
                 <div class="card-header bg-info">
                     <div class="row">
                         <div class="col-md-6">
-                            <h4 class="mb-0">Category List</h4>
+                            <h4 class="mb-0">Sub Category List</h4>
                         </div>
                         <div class="col-md-6 text-end">
-                            <a href="{{ route('categories.create') }}"><button class="btn btn-sm btn-success"><i class="fa-solid fa-plus"></i> Add New </button></a>
+                            <a href="{{ route('sub-categories.create') }}"><button class="btn btn-sm btn-success"><i class="fa-solid fa-plus"></i> Add New </button></a>
                         </div>
                     </div>
                 </div>
@@ -21,6 +21,7 @@
                         <thead>
                             <tr>
                                 <th class="text-center">SL</th>
+                                <th class="text-center">SubCategory Name</th>
                                 <th class="text-center">Category Name</th>
                                 <th class="text-center">Slug</th>
                                 <th class="text-center">Slug ID</th>
@@ -31,36 +32,37 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($categories as $category)
+                        @foreach($subCategories as $subcategory)
                             <tr>
                                 <td class="align-middle text-center p-0">{{ $loop->index+1 }}</td>
-                                <td class="align-middle p-0">{{ $category->name }}</td>
-                                <td class="align-middle p-0">{{ $category->slug }}</td>
-                                <td class="align-middle text-center p-0">{{ $category->slug_id }}</td>
+                                <td class="align-middle p-0">{{ $subcategory->name }}</td>
+                                <td class="align-middle p-0">{{ $subcategory->category->name }}</td>
+                                <td class="align-middle p-0">{{ $subcategory->slug }}</td>
+                                <td class="align-middle text-center p-0">{{ $subcategory->slug_id }}</td>
                                 <td class="align-middle text-center p-0">
-                                    @if($category->status == 1)
+                                    @if($subcategory->status == 1)
                                         <span class="badge bg-primary">Published</span>
                                     @else
                                         <span class=" mb-0 badge text-danger bg-warning">Unpublished</span>
                                     @endif
 
                                 </td>
-                                <td class="align-middle text-center p-0">{{ $category->order_by }}</td>
+                                <td class="align-middle text-center p-0">{{ $subcategory->order_by }}</td>
                                 <td class="align-middle p-0">
-                                    <small class="m-0 text-info">{{ $category->created_at->toDayDateTimeString() }}</small> <br>
-                                    <small class="m-0 text-primary">{{ $category->updated_at==$category->created_at?'Not Updated':$category->updated_at->toDayDateTimeString() }}</small>
+                                    <small class="m-0 text-info">{{ $subcategory->created_at->toDayDateTimeString() }}</small> <br>
+                                    <small class="m-0 text-primary">{{ $subcategory->updated_at==$subcategory->created_at?'Not Updated':$subcategory->updated_at->toDayDateTimeString() }}</small>
                                 </td>
                                 <td class="align-middle d-flex" style="padding: 8px 0 0 5px;">
 
-                                    <a href="{{ route('categories.show', $category->id) }}">
+                                    <a href="{{ route('sub-categories.show', $subcategory->id) }}">
                                         <button class="btn btn-info btn-sm"><i class="fa-solid fa-eye"></i></button>
                                     </a>
-                                    <a class="px-1" href="{{ route('categories.edit', $category->id) }}">
+                                    <a class="px-1" href="{{ route('sub-categories.edit', $subcategory->id) }}">
                                         <button class="btn btn-warning btn-sm"><i class="fa-regular fa-pen-to-square"></i></button>
                                     </a>
                                     <div>
-                                        {!! Form::open(['route'=>['categories.destroy',$category->id], 'method'=>'delete', 'id'=>'category_delete_form_'.$category->id]) !!}
-                                        {!! Form::button('<i class="fa-solid fa-trash"></i>',['type'=>'button', 'data-id'=>$category->id, 'id'=> 'category_delete_button_'.$category->id, 'class'=>'btn btn-sm btn-danger category-delete-button']) !!}
+                                        {!! Form::open(['route'=>['sub-categories.destroy',$subcategory->id], 'method'=>'delete', 'id'=>'category_delete_form_'.$subcategory->id]) !!}
+                                        {!! Form::button('<i class="fa-solid fa-trash"></i>',['type'=>'button', 'data-id'=>$subcategory->id, 'id'=> 'category_delete_button_'.$subcategory->id, 'class'=>'btn btn-sm btn-danger category-delete-button']) !!}
                                         {!! Form::close() !!}
                                     </div>
 
