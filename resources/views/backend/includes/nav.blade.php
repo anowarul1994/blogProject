@@ -13,14 +13,35 @@
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#!">Settings</a></li>
-            <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Activity Log</a></li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-                {!! Form::open(['method'=>'post', 'route'=>'logout']) !!}
-                {!! Form::button('logout', ['type'=>'submit', 'class'=>'dropdown-item', 'onclick'=>'return confirm("Are you sure to Logout")']) !!}
+                {!! Form::open(['method'=>'post', 'route'=>'logout', 'id'=>'logout_form']) !!}
+                {!! Form::button('logout', ['type'=>'button', 'class'=>'dropdown-item','id'=>'logout_button']) !!}
                 {!! Form::close() !!}
             </li>
         </ul>
     </li>
 </ul>
+
+@push('script')
+    <script>
+        $('#logout_button').on('click', function (){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You will be logout out from dashboard",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, logout'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#logout_form').submit()
+                }
+            })
+        })
+
+    </script>
+@endpush

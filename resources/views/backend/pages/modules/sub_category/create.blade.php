@@ -1,13 +1,13 @@
 @extends('backend.layout.master')
 
-@section('page_title', 'Create sub_category')
+@section('page_title', 'Create Sub Category')
 
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="mb-0">Create new SubCategory</h4>
+                    <h4 class="mb-0">Create new Sub Category</h4>
                 </div>
                 <div class="card-body">
                     {!! Form::open(['route'=>'sub-categories.store', 'method'=>'POST']) !!}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SubCategoryListResource;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Http\Requests\StoreSubCategoryRequest;
@@ -10,16 +11,17 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+
 
 class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View|Factory|Application
     {
         $subCategories = SubCategory::with('category')->orderBy('order_by', 'asc')->get();
         return view('backend.pages.modules.sub_category.index', compact('subCategories'));
@@ -65,45 +67,65 @@ class SubCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SubCategory  $subCategory
-     * @return Response
+     * @param SubCategory $subCategory
+     * @return Application|Factory|View
      */
-    public function show(SubCategory $subCategory)
+    public function show(SubCategory $subCategory): View|Factory|Application
     {
-        //
+        $subCategory->load('category');
+        return view('backend.pages.modules.sub_category.show', compact('subCategory'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\SubCategory  $subCategory
-     * @return Response
+     * @param SubCategory $subCategory
+     * @return Application|Factory|View
      */
-    public function edit(SubCategory $subCategory)
+    public function edit(SubCategory $subCategory): View|Factory|Application
     {
-        //
+        $categories = Category::pluck('name', 'id');
+        return view('backend.pages.modules.sub_category.edit', compact('subCategory', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateSubCategoryRequest  $request
-     * @param  \App\Models\SubCategory  $subCategory
-     * @return Response
+     * @param UpdateSubCategoryRequest $request
+     * @param SubCategory $subCategory
+     * @return RedirectResponse
      */
-    public function update(UpdateSubCategoryRequest $request, SubCategory $subCategory)
+    public function update(UpdateSubCategoryRequest $request, SubCategory $subCategory): RedirectResponse
     {
-        //
+        $subCategory->update($request->all());
+        session()->flash('msg', 'SubCategory Updated Successfully');
+        session()->flash('cls', 'success');
+        return redirect()->route('sub-categories.index');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SubCategory  $subCategory
-     * @return Response
+     * @param SubCategory $subCategory
+     * @return RedirectResponse
      */
-    public function destroy(SubCategory $subCategory)
+    public function destroy(SubCategory $subCategory): RedirectResponse
     {
-        //
+        $subCategory->delete();
+        session()->flash('msg', 'SubCategory Delete Successfully');
+        session()->flash('cls', 'warning');
+        return redirect()->route('sub-categories.index');
+    }
+
+    /**
+     * @param $id
+     * @return AnonymousResourceCollection
+     */
+    public function get_sub_categories($id): AnonymousResourceCollection
+    {
+        $sub_categories = SubCategory::where('category_id', $id)->get();
+
+        return SubCategoryListResource::collection($sub_categories);
     }
 }
