@@ -1,6 +1,6 @@
 @extends('backend.layout.master')
 
-@section('page_title', 'Category List')
+@section('page_title', 'Post List')
 
 @section('content')
     <div class="row justify-content-center">
@@ -9,10 +9,10 @@
                 <div class="card-header bg-info">
                     <div class="row">
                         <div class="col-md-6">
-                            <h4 class="mb-0">Category List</h4>
+                            <h4 class="mb-0">Post List</h4>
                         </div>
                         <div class="col-md-6 text-end">
-                            <a href="{{ route('categories.create') }}"><button class="btn btn-sm btn-success"><i class="fa-solid fa-plus"></i> Add New </button></a>
+                            <a href="{{ route('posts.create') }}"><button class="btn btn-sm btn-success"><i class="fa-solid fa-plus"></i> Add New </button></a>
                         </div>
                     </div>
                 </div>
@@ -21,46 +21,45 @@
                         <thead>
                             <tr>
                                 <th class="text-center">SL</th>
+                                <th class="text-center">Title</th>
                                 <th class="text-center">Category Name</th>
-                                <th class="text-center">Slug</th>
-                                <th class="text-center">Slug ID</th>
                                 <th class="text-center">Status</th>
-                                <th class="text-center">Order By</th>
-                                <th class="text-center">Created & Updated</th>
+                                <th class="text-center">Photo</th>
+                                <th class="text-center ">Description</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($categories as $category)
+                        @foreach($trashed_posts as $trashed_post)
                             <tr>
-                                <td class="align-middle text-center p-0">{{ $loop->index+1 }}</td>
-                                <td class="align-middle p-0">{{ $category->name }}</td>
-                                <td class="align-middle p-0">{{ $category->slug }}</td>
-                                <td class="align-middle text-center p-0">{{ $category->slug_id }}</td>
-                                <td class="align-middle text-center p-0">
-                                    @if($category->status == 1)
+                                <td class="align-middle text-justify pb-1">{{ $loop->index+1 }}</td>
+                                <td class="align-middle pb-1">{{ $trashed_post->name }}</td>
+                                <td class="align-middle pb-1">
+                                    <p class="m-0" >{{ $trashed_post->category->name }}</p>
+                                    <p class="m-0 text-success" >{{ $trashed_post->subCategory->name }}</p>
+                                </td>
+
+                                <td class="align-middle text-center pb-1">
+                                    @if($trashed_post->status == 1)
                                         <span class="badge bg-primary">Published</span>
                                     @else
                                         <span class=" mb-0 badge text-danger bg-warning">Unpublished</span>
                                     @endif
 
                                 </td>
-                                <td class="align-middle text-center p-0">{{ $category->order_by }}</td>
-                                <td class="align-middle p-0">
-                                    <small class="m-0 text-info">{{ $category->created_at->toDayDateTimeString() }}</small> <br>
-                                    <small class="m-0 text-primary">{{ $category->updated_at==$category->created_at?'Not Updated':$category->updated_at->toDayDateTimeString() }}</small>
+                                <td class="align-middle text-justify pb-1">
+                                    <img width="70px" src="{{ asset('image/uploads/thumbnail/'.$trashed_post->photo) }}" alt="">
                                 </td>
-                                <td class="align-middle d-flex" style="padding: 8px 0 0 5px;">
+                                <td class="align-middle text-justify pb-1">{!!    strip_tags(substr($trashed_post->description,0, 250)) !!} ...</td>
 
-                                    <a href="{{ route('categories.show', $category->id) }}">
+                                <td class="align-middle text-center d-flex pb-1" style="padding: 8px 0 0 5px;">
+
+                                    <a href="{{ route('posts.show', $trashed_post->id) }}">
                                         <button class="btn btn-info btn-sm"><i class="fa-solid fa-eye"></i></button>
                                     </a>
-                                    <a class="px-1" href="{{ route('categories.edit', $category->id) }}">
-                                        <button class="btn btn-warning btn-sm"><i class="fa-regular fa-pen-to-square"></i></button>
-                                    </a>
                                     <div>
-                                        {!! Form::open(['route'=>['categories.destroy',$category->id], 'method'=>'delete', 'id'=>'category_delete_form_'.$category->id]) !!}
-                                        {!! Form::button('<i class="fa-solid fa-trash"></i>',['type'=>'button', 'data-id'=>$category->id, 'id'=> 'category_delete_button_'.$category->id, 'class'=>'btn btn-sm btn-danger category-delete-button']) !!}
+                                        {!! Form::open(['route'=>['posts.destroy',$trashed_post->id], 'method'=>'delete', 'id'=>'post_delete_form_'.$trashed_post->id]) !!}
+                                        {!! Form::button('<i class="fa-solid fa-trash"></i>',['type'=>'button', 'data-id'=>$trashed_post->id, 'id'=> 'category_delete_button_'.$trashed_post->id, 'class'=>'btn btn-sm btn-danger post-delete-button']) !!}
                                         {!! Form::close() !!}
                                     </div>
 
@@ -76,7 +75,7 @@
 
     @push('script')
         <script>
-            $('.category-delete-button').on('click', function(){
+            $('.post-delete-button').on('click', function(){
                 let id= $(this).attr('data-id')
 
             Swal.fire({
@@ -89,7 +88,7 @@
             confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $('#category_delete_form_'+id).submit()  //form submit for js
+                    $('#post_delete_form_'+id).submit()  //form submit for js
                     }
                 })
             })

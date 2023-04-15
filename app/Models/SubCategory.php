@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static latest()
  * @method static orderBy(string $string, string $string1)
  * @method static where(string $string, $id)
+ * @method static find(int $id)
  */
 class SubCategory extends Model
 {

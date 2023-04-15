@@ -16,7 +16,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="width: 80vw; font-size: 14px">
                     <table class="table table-bordered table-striped table-hover table-sm">
                         <thead>
                             <tr>
@@ -83,7 +83,7 @@
 
             Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "Do you want to delete it?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

@@ -56,11 +56,20 @@ Route::group(['middleware'=>'auth', 'prefix'=>'dashboard'], function (){
     Route::put('sub-categories/{subCategory}', [SubCategoryController::class, 'update'])->name('sub-categories.update');
     Route::delete('sub-categories/{subCategory}', [SubCategoryController::class, 'destroy'])->name('sub-categories.destroy');
 
+    Route::get('get-sub-categories/{id}', [SubCategoryController::class, 'get_sub_categories']);
 
     //sub_category controller code end
 
+    //post controller code start
+    Route::get('posts/trashed', [PostController::class, 'trashed'])->name('posts.trashed');
+    Route::get('posts/restore/{id}', [PostController::class, 'restore'])->name('posts.restore');
+    Route::delete('posts/delete/{id}', [PostController::class, 'deleteForce'])->name('posts.forceDelete');
+
     Route::resource('posts', PostController::class);
-    Route::get('get-sub-categories/{id}', [SubCategoryController::class, 'get_sub_categories']);
+
+    
+
+
 
 
 });

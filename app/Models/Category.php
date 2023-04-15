@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static orderBy(string $string, string $string1)
  * @method static truncate()
  * @method static pluck(string $string, string $string1)
+ * @method static find(int $id)
  */
 class Category extends Model
 {

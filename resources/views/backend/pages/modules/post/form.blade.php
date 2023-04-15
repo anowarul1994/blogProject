@@ -22,41 +22,32 @@
         @enderror
     </div>
     <div class="col-md-6">
-        {!! Form::label('subCategory_id', 'Select Sub Category', ['class'=>'mt-2']) !!}
-        <select id="sub_categories_select" class="form-select form-select-sm">
+        {!! Form::label('sub_category_id', 'Select Sub Category', ['class'=>'mt-2']) !!}
+        <select id="sub_categories_select" name="sub_category_id" class="form-select form-select-sm">
             <option SELECTED> Select Sub Category</option>
         </select>
 
-        @error('subCategory_id')
+        @error('sub_category_id')
         <p class="text-danger mb-0"><small><i class="fa-solid fa-triangle-exclamation"></i> {{ $message }}</small></p>
         @enderror
     </div>
 </div>
 
+{!! Form::label('description', 'Post Description', ['class'=>'mt-2']) !!}
+{!! Form::textarea('description',null, ['id'=>'description','class'=>'form-control form-control-sm', 'placeholder' => 'Enter your post description'] )!!}
+@error('description')
+<p class="text-danger mb-0"><small><i class="fa-solid fa-triangle-exclamation"></i> {{ $message }}</small></p>
+@enderror
+{!! Form::label('photo', 'Post Photo', ['class'=>'mt-2']) !!}
+{!! Form::file('photo',['class'=>'form-control form-control-sm'] )!!}
+@error('photo')
+<p class="text-danger mb-0"><small><i class="fa-solid fa-triangle-exclamation"></i> {{ $message }}</small></p>
+@enderror
 
-@push('script')
-    <script>
-        $('#name').on('input', function (){
-            let value =  $(this).val()
-            value = value.replaceAll(' ','-').toLowerCase()
-            $('#slug').val(value)
 
-        })
 
-        $('#category_select').on('change', function (){
-            let id = $(this).val()
-            axios.get(window.location.origin+'/dashboard/get-sub-categories/'+id).then(res=>{
-                let subCategories = res.data.data
 
-                $('#sub_categories_select').empty()
-                $('#sub_categories_select').append(`<option selected >Select Sub Category</option>`)
-                subCategories.map((subCategory, index)=>(
-                    $('#sub_categories_select').append(`<option value="${subCategory.id}">${subCategory.name}</option>`)
-                ))
 
-            })
 
-        })
 
-    </script>
-@endpush
+
