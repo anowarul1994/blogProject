@@ -230,6 +230,14 @@ class PostController extends Controller
     public function deleteForce(int $id)
     {
         $post = Post::withTrashed()->findOrFail($id);
+        if( $post->photo!= null){
+            $path = 'image/uploads/original/';
+            $thumb_path = 'image/uploads/thumbnail/';
+            ImageUploadController::unlinkImage($path, $post->photo);
+            ImageUploadController::unlinkImage($thumb_path, $post->photo);
+
+        }
+        
         $post->forceDelete();
         session()->flash('msg', 'Post Delete Permanent Successfully');
         session()->flash('cls', 'warning');

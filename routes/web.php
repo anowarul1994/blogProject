@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FrontendController;
-
+use App\Http\Controllers\SliderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +66,7 @@ Route::group(['middleware'=>'auth', 'prefix'=>'dashboard'], function (){
     Route::delete('posts/delete/{id}', [PostController::class, 'deleteForce'])->name('posts.forceDelete');
 
     Route::resource('posts', PostController::class);
+    Route::resource('sliders', SliderController::class);
 
     
 

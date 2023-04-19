@@ -1,5 +1,5 @@
 {!! Form::label('category_id', 'Select Category', ['class'=>'mt-2']) !!}
-{!! Form::select('category_id',$categories,null, ['class'=>'form-control form-control-sm', 'placeholder' => 'Please Choose category'] )!!}
+{!! Form::select('category_id',$categories,null, ['class'=>'form-select form-select-sm', 'placeholder' => 'Please Choose category'] )!!}
 @error('category_id')
 <p class="text-danger mb-0"><small><i class="fa-solid fa-triangle-exclamation"></i> {{ $message }}</small></p>
 @enderror
@@ -15,7 +15,7 @@
 <p class="text-danger mb-0"><small><i class="fa-solid fa-triangle-exclamation"></i> {{ $message }}</small></p>
 @enderror
 {!! Form::label('status', 'SubCategory Status', ['class'=>'mt-2']) !!}
-{!! Form::select('status',[1=>'Published', 0=>'Unpublished'],null, ['class'=>'form-control form-control-sm', 'placeholder' => 'Please Choose Status'] )!!}
+{!! Form::select('status',[1=>'Published', 0=>'Unpublished'],null, ['class'=>'form-select form-select-sm', 'placeholder' => 'Please Choose Status'] )!!}
 @error('status')
 <p class="text-danger mb-0"><small><i class="fa-solid fa-triangle-exclamation"></i> {{ $message }}</small></p>
 @enderror

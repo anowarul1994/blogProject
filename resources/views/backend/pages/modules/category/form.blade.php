@@ -9,7 +9,7 @@
 <p class="text-danger mb-0"><small><i class="fa-solid fa-triangle-exclamation"></i> {{ $message }}</small></p>
 @enderror
 {!! Form::label('status', 'Category Status', ['class'=>'mt-2']) !!}
-{!! Form::select('status',[1=>'Published', 0=>'Unpublished'],null, ['class'=>'form-control form-control-sm', 'placeholder' => 'Please Choose Status'] )!!}
+{!! Form::select('status',[1=>'Published', 0=>'Unpublished'],null, ['class'=>'form-select form-select-sm', 'placeholder' => 'Please Choose Status'] )!!}
 @error('status')
 <p class="text-danger mb-0"><small><i class="fa-solid fa-triangle-exclamation"></i> {{ $message }}</small></p>
 @enderror
