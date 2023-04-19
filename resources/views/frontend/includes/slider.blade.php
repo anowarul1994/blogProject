@@ -1,15 +1,14 @@
 <header class=" bg-light border-bottom">
 
     <div class="home-slider">
+        @foreach ($sliders as $slider)
+       
         <div>
-            <img src="{{ asset('image/banner/1.jpg') }}" alt="banner">
+            <img src="{{ asset('image/uploads/slider/'.$slider->photo) }}" alt="banner">
         </div>
-        <div>
-            <img src="{{ asset('image/banner/2.jpg') }}" alt="banner">
-        </div>
-        <div>
-            <img src="{{ asset('image/banner/3.jpg') }}" alt="banner">
-        </div>
+             
+        @endforeach
+        
     </div>
 
 

@@ -18,8 +18,12 @@ class Category extends Model
     use HasFactory;
     protected $guarded=[];
 
-    public function category()
+    public function subCategories()
     {
         return $this->hasMany(SubCategory::class);
+    }
+    public function post()
+    {
+        return $this->hasMany(Post::class);
     }
 }

@@ -16,3 +16,40 @@
     left: 25px;
     z-index: 999;
 }
+
+.category p{
+    padding: 3px 0;
+    margin: 0;
+}
+
+.category a{
+    color: darkcyan;
+    text-decoration: none;
+}
+
+.category a:hover{
+    color: orangered;
+    text-decoration: underline;
+}
+
+.category ul{
+    margin: 0;
+    list-style: none;
+    padding-left: 10px;
+}
+
+.subcategory{
+    padding-left: 5px;
+    
+}
+.subcategory a{
+    color: rgb(247, 107, 8);
+}
+
+.subcategory a:hover{
+    color: rgb(10, 4, 1);
+}
+
+.post-item span{
+    margin-right: 10px;
+}
