@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\SliderController;
+use App\Models\Comment;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,15 @@ use App\Http\Controllers\SliderController;
 
 
 Route::get('/', [FrontendController::class, 'index'])->name('front.index');
+Route::get('/category/{slug_id}/{slug?}', [FrontendController::class, 'category'])->name('front.category');
+Route::get('/sub-category/{slug_id}/{slug?}', [FrontendController::class, 'sub_category'])->name('front.sub_category');
+Route::get('/single-blog/{slug_id}/{slug?}', [FrontendController::class, 'single_blog'])->name('front.single_blog');
+Route::get('/search-result', [FrontendController::class, 'search'])->name('front.search');
+
+
+Route::group(['middleware'=>'auth'], function (){
+    Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
+} );
 
 
 Route::group(['middleware'=>'auth', 'prefix'=>'dashboard'], function (){

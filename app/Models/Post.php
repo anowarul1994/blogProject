@@ -29,4 +29,9 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class)->where('comment_id', null);
+    }
 }

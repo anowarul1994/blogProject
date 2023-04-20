@@ -3,10 +3,14 @@
     <div class="card mb-4">
         <div class="card-header">Search</div>
         <div class="card-body">
+            {!! Form::open(['route'=>'front.search', 'method'=>'get']) !!}
             <div class="input-group">
-                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                
+                {!! Form::search('search', null,['class'=>'form-control', 'placeholder'=>'Enter search']) !!}
+                <button class="btn btn-primary input-group-text" id="button-search" type="submit">Search</button>            
+                
             </div>
+            {!! Form::close() !!}
         </div>
     </div>
     <!-- Categories widget-->
@@ -16,7 +20,7 @@
             <ul>
                 @foreach ($categories as $category)
                 
-                    <li class="category-item"><a href="{{ $category->subCategories->count()>0 ? 'javascript:void(0)': '/'}}">{{ $category->name }}
+                    <li class="category-item"><a href="{{ $category->subCategories->count()>0 ? 'javascript:void(0)': route('front.category',[$category->slug_id, $category->slug])}}">{{ $category->name }}
                         @if ($category->subCategories->count()>0)
                         <i class="fa-solid fa-plus"></i>
                         @endif
@@ -24,7 +28,7 @@
                         @if ($category->subCategories)
                             <ul style="display:none;">
                                 @foreach ($category->subCategories as $subCategory )
-                                    <li class="subcategory"><a href="#">{{ $subCategory->name }}</a></li>
+                                    <li class="subcategory"><a href="{{ route('front.sub_category', [$subCategory->slug_id, $subCategory->slug]) }}">{{ $subCategory->name }}</a></li>
                                 @endforeach
                                 
                             </ul>
